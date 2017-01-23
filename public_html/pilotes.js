@@ -3,8 +3,8 @@ var id, num, opac;
 var r1, g1, b1, a1, r2, g2, b2, a2;
 
 //var pilotas = {mida: 10, color: 0, posx: 0, posy: 0, dx: 1, dy: 1};
-pilota1 = {mida: 10, color: 'rgba('+r1+','+g1+','+b1+','+a1+')', posx: 0, posy: 0, dx: 1, dy: 1, opac: 0.1};
-pilota2 = {mida: 10, color: 'rgba('+r2+','+g2+','+b2+','+a2+')', posx: 0, posy: 0, dx: 1, dy: 1, opac: 0.1};
+pilota1 = {mida: 10, color: 'rgba('+r1+','+g1+','+b1+','+a1+')', posx: 0, posy: 0, dx: 1, dy: 1, opac: 0.01};
+pilota2 = {mida: 10, color: 'rgba('+r2+','+g2+','+b2+','+a2+')', posx: 0, posy: 0, dx: 1, dy: 1, opac: 0.01};
 
 window.onload = pilotes();
 
@@ -25,25 +25,15 @@ function pilotes (){
     
     function pintarPilotas1(){
         ctx.save();
-        
-//        if(r1 >= 255) {
-//            r1 = 0;
-//        }
-//        if(g1 >= 255) {
-//            g1 = 0;
-//        }
-//        if(b1 >= 255) {
-//            b1 = 0;
-//        }
-//        r1++;g1++;b1++;
+
         r1 = Math.floor(Math.random()*255);
         g1 = Math.floor(Math.random()*255);
         b1 = Math.floor(Math.random()*255);
         if(a1 >= 1) {
-            a1 = -pilota1.opac;
+            pilota1.opac = -pilota1.opac;
         }
         if (a1 <= 0){
-            a1 = -pilota1.opac;
+            pilota1.opac = -pilota1.opac;
         }
         a1 += pilota1.opac;
         if(pilota1.posy >= h) {
@@ -53,28 +43,41 @@ function pilotes (){
             pilota1.dy = -pilota1.dy;
         }
         pilota1.posy += pilota1.dy;
-        ctx.fillStyle = 'rgb('+r1+','+g1+','+b1+')';
+        ctx.fillStyle = 'rgba('+r1+','+g1+','+b1+','+a1+')';
         ctx.beginPath();
         ctx.arc(pilota1.posx, pilota1.posy, pilota1.mida, 0, 2*Math.PI);
         ctx.closePath();
         ctx.fill();
-        //ctx.globalAlpha = pilota1.opac;
-        //console.log(pilota1.opac);
 
         ctx.restore();
         
     }
     function pintarPilotas2(){
         ctx.save();
-        
-        r2++;g2++;b2++;
-        
-        ctx.fillStyle = 'rgb('+r2+','+g2+','+b2+')';
+
+        r2 = Math.floor(Math.random()*255);
+        g2 = Math.floor(Math.random()*255);
+        b2 = Math.floor(Math.random()*255);
+        if(a2 >= 1) {
+            pilota2.opac = -pilota2.opac;
+        }
+        if (a2 <= 0){
+            pilota2.opac = -pilota2.opac;
+        }
+        a2 += pilota2.opac;
+        if(pilota2.posx >= w) {
+            pilota2.dx = -pilota2.dx;
+        }
+        if(pilota2.posx <= 1) {
+            pilota2.dx = -pilota2.dx;
+        }
+        pilota2.posx += pilota2.dx;
+        console.log(pilota2.posx);
+        ctx.fillStyle = 'rgba('+r1+','+g1+','+b1+','+a1+')';
         ctx.beginPath();
-        ctx.arc(pilota2.posx, pilota2.posy, pilota2.mida, 0, 2*Math.PI);
+        ctx.arc(pilota1.posx, pilota2.posy, pilota2.mida, 0, 2*Math.PI);
         ctx.closePath();
         ctx.fill();
-        ctx.globalAlpha = pilota2.opac;
 
         ctx.restore();
         
